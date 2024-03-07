@@ -57,14 +57,7 @@ session_start();
                     <div class="col-lg-5 d-none d-lg-block">
                         <nav id="mobile-menu">
                             <ul class="main-menu main-menu2">
-                                <li><a href="#">home <span><i class="fas fa-angle-down"></i></span></a>
-                                    <ul class="submenu">
-                                        <li><a href="index.html">home-1</a></li>
-                                        <li><a href="homepage2.html">home-2</a></li>
-                                        <li><a href="homepage3.html">home-3</a></li>
-                                        <li><a href="homepage4.html">home-4</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href=".">Home </a></li>
                                 <li><a href="about.html">about</a></li>
                                 <li><a href="#">blog <span><i class="fas fa-angle-down"></i></span></a>
                                     <ul class="submenu">

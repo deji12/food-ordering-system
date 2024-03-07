@@ -17,4 +17,14 @@ function display_message(){
         // remove error messages from session after rendering
         unset($_SESSION["login_errors"]);
     }
+
+    if (isset($_SESSION["password_reset_success"])){
+        
+        $message = $_SESSION["password_reset_success"];
+
+        echo '<b><p style="color: dodgerblue;">' . $message . ' </p></b>';
+
+        unset($_SESSION["password_reset_success"]);
+
+    }
 }

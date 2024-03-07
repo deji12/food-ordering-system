@@ -120,7 +120,7 @@ redirect_if_logged_in();
                                     <label for="remember">remember me</label>
                                 </div>
                                 <div class="forgot-pas">
-                                    <a href="#">forgot password?</a>
+                                    <a href="./forgot-password.php">forgot password?</a>
                                 </div>
                             </div>
                             <div class="login-btn">
