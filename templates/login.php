@@ -1,3 +1,13 @@
+<?php 
+
+require_once '../views/login_view.php';
+require_once '../config/auth.php';
+
+redirect_if_logged_in();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Page Title -->
-    <title>Login - HTML 5 Template</title>
+    <title>Login</title>
 
     <!-- Favicon Icon -->
     <link rel="shortcut icon" href="favicon.png">
@@ -46,7 +56,7 @@
                 <nav aria-label="breadcrumb">
                     <h2 class="page-title">login page</h2>
                     <ol class="breadcrumb text-center">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> login page</li>
                     </ol>
                 </nav>
@@ -98,12 +108,12 @@
                 <div class="col-lg-6 col-md-12 wow fadeInUp">
                     <div class="contact-form-area login-form-area signup-form-area">
                         <h3>login to <span>your account</span></h3>
-                        <form action="#">
-                            <div class="google-button">
-                                <a href="#" class="btn"><span><i class="fab fa-google"></i></span> google</a>
-                            </div>
-                            <input type="email" placeholder="email">
-                            <input type="password" placeholder="password">
+                        <form action="../controllers/login_controller.php" method="POST">
+
+                            <?php display_message(); ?> 
+                           
+                            <input type="email" name="email" placeholder="email" required>
+                            <input type="password" name="password" placeholder="password" required>
                             <div class="checkbox-area">
                                 <div class="checkbox-part">
                                     <input type="checkbox" id="remember">

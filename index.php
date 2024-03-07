@@ -110,10 +110,10 @@ session_start();
                                 <span class="span-1">delivery order</span> <span class="span-2">123-59794069</span>
                             </div>
                             <?php 
-                                if (!$_SESSION["user"]) {
+                                if (!isset($_SESSION["user"])) {
                                     echo '<a href="templates/login.php" class="btn">login</a>';
                                 } else {
-                                    echo '<a href="templates/login.php" class="btn">Logout</a>';
+                                    echo '<a href="templates/logout.php" class="btn">Logout</a>';
                                 }
                             ?>
 

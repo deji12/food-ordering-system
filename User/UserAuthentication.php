@@ -59,7 +59,7 @@ class Authenticate {
 
     }
 
-    private function Validate(string $name, string $email, string $password, string $confirm_password): array {
+    private function validate_signup_data(string $name, string $email, string $password, string $confirm_password): array {
 
         $errors = [];
 
@@ -75,24 +75,51 @@ class Authenticate {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors["invalid_email"] = "The email you provided is invalid";
         }
-        if ($this->userRepository->user_exists($email)) {
+        if ($this->userRepository->get_user($email)) {
             $errors["user_exists"] = "A user with that email already exists";
         }
 
         return $errors;
     }
 
+    private function validate_login_data(string $email, string $password): array {
+
+        $errors = [];
+
+        if (empty($email) || empty($password)) {
+            $errors["incomplete_form"] = "Please fill all fields";
+        }
+
+        $check_if_user_exists = $this->userRepository->get_user($email);
+
+        if (!$check_if_user_exists) {
+            $errors["unknown_user"] = "No user with '$email' exists";
+        }
+
+        if ($check_if_user_exists && !password_verify($password, $check_if_user_exists["pwd"])) {
+            $errors["invalid_password"] = "Invalid password entered";
+        }
+
+        return [
+            "errors" => $errors,
+            "user" => $check_if_user_exists
+        ];
+    }
+
     public function signup(string $name, string $email, string $password, string $confirm_password) {
 
-        $validate_provided_details = $this->Validate($name, $email, $password, $confirm_password);
+        $validate_provided_details = $this->validate_signup_data($name, $email, $password, $confirm_password);
 
         if (empty($validate_provided_details)) {
+
             $save_new_user_in_db_and_get_id = $this->userRepository->create_user($name, $email, $password);
             $create_new_user_instance = new User(intval($save_new_user_in_db_and_get_id), $name, $email);
+
             // save user details in session
             $_SESSION["user"] = $create_new_user_instance;
             header("Location: ../index.php");
             die();
+
         } else {
             $_SESSION["signup_errors"] = $validate_provided_details;
             header("location: ../templates/signup.php");
@@ -101,6 +128,23 @@ class Authenticate {
     }
 
     public function login(string $email, string $password) {
+        
+        $validate_provided_details = $this->validate_login_data($email, $password);
+
+        if (empty($validate_provided_details["errors"])) {
+
+            $user =$validate_provided_details["user"];
+            $create_new_user_instance = new User(intval($user["id"]), $user["user_name"], $user["email"]);
+
+            // save user details in session
+            $_SESSION["user"] = $create_new_user_instance;
+            header("Location: ../index.php");
+            die();
+        } else {
+            $_SESSION["login_errors"] = $validate_provided_details["errors"];
+            header("location: ../templates/login.php");
+            die();
+        }
 
     }
 

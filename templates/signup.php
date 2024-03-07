@@ -1,6 +1,9 @@
 <?php 
+ini_set('display_errors', 1);
+require_once '../views/signup_view.php';
+require_once '../config/auth.php';
 
-require_once '../views/signup_view.php'
+redirect_if_logged_in();
 
 ?>
 
@@ -20,15 +23,7 @@ require_once '../views/signup_view.php'
     <link rel="shortcut icon" href="favicon.png">
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../assets/css/animate.css">
-    <link rel="stylesheet" href="../assets/css/meanmenu.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../assets/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="../assets/css/slick.css">
-    <link rel="stylesheet" href="../assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <?php include 'css-links.php'; ?>
 </head>
 
 <body>
@@ -43,100 +38,7 @@ require_once '../views/signup_view.php'
         </div>
     </div>
     <!-- header -->
-    <header>
-        <!-- header-top -->
-        <div class="header-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12 d-flex flex-wrap justify-content-between">
-                        <div class="contact-box">
-                            <span> <a href="#"><i class="fas fa-phone-square-alt"></i> 123-58794069</a> </span>
-                            <span> <a href="#"><i class="fas fa-envelope-open-text"></i> supportfoodkhan@.com</a></span>
-                        </div>
-                        <div class="social-box">
-                            <span><a href="#"><i class="fab fa-facebook"></i></a></span>
-                            <span><a href="#"><i class="fab fa-twitter"></i></a></span>
-                            <span><a href="#"><i class="fab fa-linkedin-in"></i></a></span>
-                            <span><a href="#"><i class="fab fa-instagram"></i></a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- header-bottom -->
-        <div class="header-bottom margin-top-20">
-            <div class="container position-relative">
-                <div class="row d-flex align-items-center">
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-3">
-                        <div class="logo">
-                            <a href="index.html"> <img src="../assets/images/logo/logo.png" alt="logo"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <nav id="mobile-menu">
-                            <ul class="main-menu">
-                                <li><a href="#">home <span><i class="fas fa-angle-down"></i></span></a>
-                                    <ul class="submenu">
-                                        <li><a href="index.html">home-1</a></li>
-                                        <li><a href="homepage2.html">home-2</a></li>
-                                        <li><a href="homepage3.html">home-3</a></li>
-                                        <li><a href="homepage4.html">home-4</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">about us</a></li>
-                                <li><a href="menu.html">menu</a></li>
-                                <li><a href="#">blog <span><i class="fas fa-angle-down"></i></span></a>
-                                    <ul class="submenu">
-                                        <li><a href="blog.html">blog</a></li>
-                                        <li><a href="blog-single.html">single blog</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">pages <span><i class="fas fa-angle-down"></i></span></a>
-                                    <ul class="submenu">
-                                        <li><a href="checkout.html">checkout page</a></li>
-                                        <li><a href="single-dish.html">single dish page</a></li>
-                                        <li><a href="food-page.html">food page</a></li>
-                                        <li><a href="food-page2.html">food page 2</a></li>
-                                        <li>
-                                            <a href="shopping-cart.html">shopping cart page</a>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html">wishlist page</a>
-                                        </li>
-                                        <li>
-                                            <a href="profile.html">profile page</a>
-                                        </li>
-                                        <li><a href="single-food.html">single food page</a></li>
-                                        <li><a href="gallery.html">gallery page</a></li>
-                                        <li><a href="login.html">login page</a></li>
-                                        <li><a href="signup.html">signup page</a></li>
-                                        <li><a href="404.html">404 page</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">contact us</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-lg-4 col-md-9 col-8">
-                        <div class="customer-area">
-                            <span>
-                                <a href="wishlist.html"><i class="fas fa-heart"></i></a>
-                            </span>
-                            <span>
-                                <a href="profile.html"><i class="fas fa-user"></i></a>
-                            </span>
-                            <span>
-                                <a href="shopping-cart.html"><i class="fas fa-shopping-basket"></i></a>
-                            </span>
-                            <a href="#" class="btn">login</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- mobile-menu -->
-                <div class="mobile-menu"></div>
-            </div>
-        </div>
-    </header>
+    <?php include 'header.php'; ?>
 
     <!-- breadcrumb-area -->
     <div class="banner-area breadcrumb-area padding-top-120 padding-bottom-90">
@@ -211,7 +113,7 @@ require_once '../views/signup_view.php'
                         <form action="../controllers/signup_controller.php" method="POST">
                             
                             <input type="text" placeholder="name" name="name" required>
-                            <input type="text" placeholder="email" name="email" required>
+                            <input type="email" placeholder="email" name="email" required>
                             <input type="password" placeholder="password" name="password" required>
                             <input type="password" placeholder="confirm password" name="confirm_password" required>
                             <div class="checkbox-area">
@@ -318,19 +220,7 @@ require_once '../views/signup_view.php'
     <button class="scrollup"><i class="fas fa-angle-up"></i></button>
 
     <!-- Javascript Files -->
-    <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
-    <script src="../assets/js/vendor/bootstrap.min.js"></script>
-    <script src="../assets/js/vendor/jquery.meanmenu.min.js"></script>
-    <script src="../assets/js/vendor/jquery.magnific-popup.min.js"></script>
-    <script src="../assets/js/vendor/slick.min.js"></script>
-    <script src="../assets/js/vendor/counterup.min.js"></script>
-    <script src="../assets/js/vendor/countdown.js"></script>
-    <script src="../assets/js/vendor/waypoints.min.js"></script>
-    <script src="../assets/js/vendor/jquery-ui.js"></script>
-    <script src="../assets/js/vendor/isotope.pkgd.min.js"></script>
-    <script src="../assets/js/vendor/easing.min.js"></script>
-    <script src="../assets/js/vendor/wow.min.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <?php include './footer.php'; ?>
 
 </body>
 

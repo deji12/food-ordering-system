@@ -76,7 +76,13 @@
                             <span>
                                 <a href="shopping-cart.html"><i class="fas fa-shopping-basket"></i></a>
                             </span>
-                            <a href="#" class="btn">login</a>
+                            <?php 
+                                if (!isset($_SESSION["user"])) {
+                                    echo '<a href="login.php" class="btn">login</a>';
+                                } else {
+                                    echo '<a href="logout.php" class="btn">Logout</a>';
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

@@ -8,13 +8,14 @@ class UserRepository {
         $this->connection = $pdo;
     }
 
-    public function user_exists($email) {
+    public function get_user($email) {
         $query = "SELECT * FROM users WHERE email = :email;";
         $statement = $this->connection->prepare($query);
         $statement->bindParam(":email", $email);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-        return ($result) ? true : false;
+        // return ($result) ? true : false;
+        return $result;
     }
 
     public function create_user(string $name, $email, $password) {
