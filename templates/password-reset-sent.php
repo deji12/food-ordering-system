@@ -62,7 +62,7 @@ if(!isset($_GET["status"])) {
         <div class="container padding-top-120">
             <div class="row justify-content-center">
                 <nav aria-label="breadcrumb">
-                    <h2 class="page-title">login page</h2>
+                    <h2 class="page-title">Password reset sent</h2>
                     <ol class="breadcrumb text-center">
                         <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> login page</li>

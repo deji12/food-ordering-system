@@ -67,7 +67,7 @@ class User {
                     $this->userRepository->create_password_reset_token($email, $uid);
 
                     $_SESSION["reset_uid"] = $uid;
-                    $_SESSION["email_reset_reset"] = "We sent a password reset link to the email '<b>$email</b>'. The link is valid for 20 minutes.";
+                    $_SESSION["email_reset_reset"] = "We sent a password reset link to the email '<b>$email</b>'. The link is valid for <b>20 minutes</b>.";
                     header("Location: ../templates/password-reset-sent.php?status=sent");
                     die();
                 }
