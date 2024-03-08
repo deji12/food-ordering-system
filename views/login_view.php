@@ -27,4 +27,13 @@ function display_message(){
         unset($_SESSION["password_reset_success"]);
 
     }
+
+    if (isset($_SESSION["signup_success"])){
+        
+
+        echo '<b><p style="color: dodgerblue;">' . $_SESSION["signup_success"] . ' </p></b>';
+
+        unset($_SESSION["signup_success"]);
+
+    }
 }

@@ -34,8 +34,9 @@ class UserRepository {
         $statement->execute();
 
         // return new user id
-        return $this->connection->lastInsertId();
+        //return $this->connection->lastInsertId();
     }
+
     public function create_password_reset_token(string $email, string $token){
         $query = "INSERT INTO password_reset_requests (email, token) VALUES (:email, :token)";
         $statement = $this->connection->prepare($query);
@@ -92,6 +93,54 @@ class UserRepository {
         $deleteStatement = $this->connection->prepare($deleteQuery);
         $deleteStatement->bindParam(":token", $token);
         $deleteStatement->execute();
+    }
+
+    public function set_name(string $user_name, int $id){
+        $query = "UPDATE users SET user_name = :user_name WHERE id = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(':user_name', $user_name);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+    }
+
+    public function set_email(string $email, int $id){
+        $query = "UPDATE users SET email = :email WHERE id = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+    }
+
+    public function set_house_number(int $house_number, int $id){
+        $query = "UPDATE users SET house_number = :house_number WHERE id = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(':house_number', $house_number);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+    }
+
+    public function set_building_name(string $building_name, int $id){
+        $query = "UPDATE users SET building_name = :building_name WHERE id = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(':building_name', $building_name);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+    }
+
+    public function set_address(string $user_address, int $id){
+        $query = "UPDATE users SET user_address = :user_address WHERE id = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(':user_address', $user_address);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+    }
+
+    public function set_phone(string $phone, int $id){
+        $query = "UPDATE users SET phone = :phone WHERE id = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->bindParam(':phone', $phone);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
     }
 
 };

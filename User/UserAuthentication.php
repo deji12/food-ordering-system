@@ -18,16 +18,32 @@ class User {
     private $email;
     private $phone;
     private $userRepository;
+    private $building_name;
+    private $house_number;
 
-    public function __construct(int $_user_id=null, string $_name=null, string $_email=null) {
-        if ($_user_id !== null && $_name !== null && $_email !== null) {
-            $this->user_id = $_user_id;
-            $this->name = $_name;
-            $this->email = $_email;
-        } else {
-            require_once '../config/database.php';
-            $this->userRepository = new UserRepository($pdo);
-        }
+    public function __construct() {
+
+        require_once '../config/database.php';
+
+        $this->userRepository = new UserRepository($pdo);
+
+        /* automatically assign values to private attributes immediatly new User 
+            class is created */
+
+
+        // getting user information using the UserRepository class
+        $user = $this->userRepository->get_user($_SESSION["user"]["email"]);
+
+        // assigning user information to class attributes
+
+        $this->user_id = $user["id"];
+        $this->name = $user["user_name"];
+        $this->address = $user["user_address"];
+        $this->email = $user["email"];
+        $this->phone = $user["phone"];
+        $this->building_name = $user["building_name"];
+        $this->house_number = $user["house_number"];
+        
     }
 
     public function reset_password(string $email) {
@@ -136,12 +152,55 @@ class User {
 
     }
 
+    public function set_authenticated_user_password(string $password, string $confirm_password){
+
+        $validate_user_input = $this->validate_password_reset($password, $confirm_password);
+
+        if (empty($validate_user_input)) {
+            $this->userRepository->set_password($this->email, $password);
+            header("Location: ../templates/logout.php?reset_from_profile=1");
+            die();
+        } else {
+            $_SESSION["profile_password_change_error"] = $validate_user_input;
+            header("Location: ../templates/profile.php");
+        }
+
+    }
+
     public function set_address(string $address) {
         $this->address = $address;
+        $_SESSION["user"]["user_address"] = $address;
+        $this->userRepository->set_address($address, $this->user_id);
+    }
+
+    public function set_house_number(int $house_number) {
+        $this->house_number = $house_number;
+        $_SESSION["user"]["house_number"] = $house_number;
+        $this->userRepository->set_house_number($house_number, $this->user_id);
+    }
+
+    public function set_building_name(string $building_name) {
+        $this->building_name = $building_name;
+        $_SESSION["user"]["building_name"] = $building_name;
+        $this->userRepository->set_building_name($building_name, $this->user_id);
     }
 
     public function set_phone(string $phone) {
         $this->phone = $phone;
+        $_SESSION["user"]["phone"] = $phone;
+        $this->userRepository->set_phone($phone, $this->user_id);
+    }
+
+    public function set_name(string $name) {
+        $this->name = $name;
+        $_SESSION["user"]["user_name"] = $name;
+        $this->userRepository->set_name($name, $this->user_id);
+    }
+
+    public function set_email(string $email) {
+        $this->email = $email;
+        $_SESSION["user"]["email"] = $email;
+        $this->userRepository->set_email($email, $this->user_id);
     }
 
     public function get_id(): int {
@@ -229,19 +288,18 @@ class Authenticate {
 
         if (empty($validate_provided_details)) {
 
-            $save_new_user_in_db_and_get_id = $this->userRepository->create_user($name, $email, $password);
-            $create_new_user_instance = new User(intval($save_new_user_in_db_and_get_id), $name, $email);
+            // creating user in db
+            $this->userRepository->create_user($name, $email, $password);
 
-            // save user details in session
-            $_SESSION["user"] = $create_new_user_instance;
-            header("Location: ../index.php");
+            $_SESSION["signup_success"] = "Account successfully created. Proceed to login";
+            header("Location: ../templates/login.php");
             die();
 
         } else {
             $_SESSION["signup_errors"] = $validate_provided_details;
             header("location: ../templates/signup.php");
             die();
-        }
+        }  
     }
 
     public function login(string $email, string $password) {
@@ -250,11 +308,10 @@ class Authenticate {
 
         if (empty($validate_provided_details["errors"])) {
 
-            $user =$validate_provided_details["user"];
-            $create_new_user_instance = new User(intval($user["id"]), $user["user_name"], $user["email"]);
+            $user = $validate_provided_details["user"];
 
             // save user details in session
-            $_SESSION["user"] = $create_new_user_instance;
+            $_SESSION["user"] = $user;
             header("Location: ../index.php");
             die();
         } else {
