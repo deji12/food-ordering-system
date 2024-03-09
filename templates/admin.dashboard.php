@@ -60,7 +60,7 @@ if ($_SESSION["user"]["is_admin"] != 1) {
                 <nav aria-label="breadcrumb">
                     <h2 class="page-title">Admin Page</h2>
                     <ol class="breadcrumb text-center">
-                        <li class="breadcrumb-item"><a href="../index.pgp">Home</a></li>
+                        <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Admin Page</li>
                     </ol>
                 </nav>
@@ -86,17 +86,15 @@ if ($_SESSION["user"]["is_admin"] != 1) {
                             <i class="fa-solid fa-cart-plus"></i>
                             Orders
                         </button>
+                        <button class="nav-link text-start"  type="button" onclick="window.location.href= 'categories.php'">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Categories
+                        </button>
                         <button class="nav-link text-start" id="track-order-tab" data-bs-toggle="pill"
                             data-bs-target="#track-order" type="button" role="tab" aria-controls="track-order"
                             aria-selected="false">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Add Category
-                        </button>
-                        <button class="nav-link text-start" id="address-tab" data-bs-toggle="pill"
-                            data-bs-target="#address" type="button" role="tab" aria-controls="address"
-                            aria-selected="false">
-                            <i class="fa-solid fa-location-dot"></i>
-                            My Address
                         </button>
                         <button class="nav-link text-start" id="account-details-tab" data-bs-toggle="pill"
                             data-bs-target="#account-details" type="button" role="tab" aria-controls="account-details"

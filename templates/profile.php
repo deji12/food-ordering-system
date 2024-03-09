@@ -55,7 +55,7 @@ require_once '../views/profile_view.php';
                 <nav aria-label="breadcrumb">
                     <h2 class="page-title">Profile Page</h2>
                     <ol class="breadcrumb text-center">
-                        <li class="breadcrumb-item"><a href="../index.pgp">Home</a></li>
+                        <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Profile Page</li>
                     </ol>
                 </nav>

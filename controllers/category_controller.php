@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image_file"])) {
         require_once '../Category/category.php';
 
         $create_new_category = new Category($category_name, $image["tmp_name"]);
+        $create_new_category->save();
 
         $_SESSION["category_added"] = "Category added successfully";
         header("Location: ../templates/admin.dashboard.php");
