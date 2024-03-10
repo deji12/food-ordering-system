@@ -45,4 +45,12 @@ class Category {
         return $result;
     }
 
+    public function edit(int $category_id, string $_name){
+        $query = "UPDATE Category SET category_name = :_name WHERE id = :category_id;";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindParam(':_name', $_name);
+        $statement->bindParam(':category_id', $category_id);
+        $statement->execute();
+    }
+
 };

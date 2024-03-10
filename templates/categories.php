@@ -78,6 +78,7 @@ if ($_SESSION["user"]["is_admin"] != 1) {
                         
                         <div class="" id="order" tabindex="0" style="width: 100%;">
                             <h5 class="margin-bottom-30">Categories</h5>
+                            <?php display_message(); ?>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -96,6 +97,23 @@ if ($_SESSION["user"]["is_admin"] != 1) {
                                 </table>
                             </div>
                         </div>
+                        <form action="../controllers/edit_category_controller.php" method="post" id="edit-category-form" style="display: none;">
+                            <div class="mb-3" id="edit-category">
+                                <label for="userName" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" name="edit_item_name" id="item_name" required>
+                                <input type="text" name="category_id" id="category_id" hidden>
+                                <br><button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                        <script>
+                            function display_edit_form(event, name, id) {
+                                event.preventDefault();
+                                const form = document.getElementById("edit-category-form");
+                                form.style.display = "block";
+                                document.getElementById("item_name").value = name;
+                                document.getElementById("category_id").value = id;
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
